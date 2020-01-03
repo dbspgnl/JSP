@@ -193,7 +193,52 @@ public class MyDao {
 	}
 	
 	public int update(MyDto dto) {
-		return 0;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("1 dirver연결");
+		} catch (ClassNotFoundException e) {
+			System.out.println("ERROR 1");
+			e.printStackTrace();
+		}
+		
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String user = "kh";
+		String password = "kh";
+		
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			System.out.println("2 계정 연결");
+		} catch (SQLException e) {
+			System.out.println("ERROR 2");
+			e.printStackTrace();
+		}
+		PreparedStatement pstm = null;
+		int res = 0;
+		String sql = " UPDATE MYBOARD SET MYTITLE = ?, MYCONTENT=? "
+				+ " WHERE MYNO =? ";
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getMytitle());
+			pstm.setString(2, dto.getMycontent());
+			pstm.setInt(3, dto.getMyno());
+			
+			res = pstm.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ERROR 3,4");
+			e.printStackTrace();
+		} finally {
+			try {
+				pstm.close();
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("ERROR 5");
+				e.printStackTrace();
+			}
+		}
+		
+		return res;
 	}
 	
 	public int delete(int myno) {

@@ -35,9 +35,9 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="button" value="수정" onclick="" />
+				<input type="button" value="수정" onclick="location.href='myupdate.jsp?myno=<%=dto.getMyno() %>'" />
 				<input type="button" value="삭제" onclick="location.href='mydelete.jsp?myno=<%=dto.getMyno() %>'" />
-				<input type="button" value="목록" onclick="" />
+				<input type="button" value="목록" onclick="location.href='mylist.jsp'" />
 			</td>
 		</tr>
 	
