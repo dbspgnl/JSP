@@ -20,8 +20,8 @@
 	<h1>전체출력</h1>
 	
 	<table border="1">
+	<col width="50">
 	<col width="100">
-	<col width="200">
 	<col width="200">
 	<col width="100">
 		<tr>
@@ -43,7 +43,7 @@
 			<tr>
 				<td><%=dto.getMyno() %></td>
 				<td><%=dto.getMyname() %></td>
-				<td><a href="#"><%=dto.getMytitle() %></a></td>
+				<td><a href="./mydetail.jsp?myno=<%=dto.getMyno() %>"><%=dto.getMytitle() %></a></td>
 				<td><%=dto.getMydate() %></td>
 			</tr>
 <%

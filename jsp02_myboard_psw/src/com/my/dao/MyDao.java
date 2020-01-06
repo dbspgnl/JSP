@@ -1,6 +1,7 @@
 package com.my.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,18 +59,18 @@ public class MyDao {
 		Connection con = getConnection();
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = " SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, "
-				+ " MYDATE FROM MYBORAD WHERE MYNO = " + myno;
-		MyDto res = null;
-		
+		String sql = " SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE "
+				+ " FROM MYBOARD WHERE MYNO= " + myno;
+		MyDto dto = new MyDto();
+
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				res = new MyDto(rs.getInt(1), rs.getString(2), 
-					rs.getString(3), rs.getString(4), rs.getDate(5));
-			}
-			System.out.println("3,4 실행 리턴");
+			dto = new MyDto(rs.getInt(1), rs.getString(2), 
+				rs.getString(3), rs.getString(4), rs.getDate(5));
+		}
+			System.out.println("3. 쿼리준비: " + sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("ERROR 3,4");
@@ -78,13 +79,13 @@ public class MyDao {
 				rs.close();
 				stmt.close();
 				con.close();
-				System.out.println("5 db종료");
+				System.out.println("5. db종료");
 			} catch (SQLException e) {
+				System.out.println("ERROR 5");
 				e.printStackTrace();
-				System.out.println("EEROR 5");
 			}
 		}
-		return res;
+		return dto;
 	}
 	
 	public int insert(MyDto dto) {
@@ -120,9 +121,9 @@ public class MyDao {
 				+ " MYTITLE=? MYCONTENT=? WHERE MYNO=? ";
 		try {
 			pstm = con.prepareStatement(sql);
-			pstm.setString(1, dto.getMyname());
-			pstm.setString(2, dto.getMytitle());
-			pstm.setString(3, dto.getMycontent());
+			pstm.setString(1, dto.getMytitle());
+			pstm.setString(2, dto.getMycontent());
+			pstm.setInt(3, dto.getMyno());
 			
 			res = pstm.executeUpdate();
 		} catch (SQLException e) {

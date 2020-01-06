@@ -14,7 +14,7 @@
 	<a href="./mylist.jsp">list</a><br/>
 	<a href="mylist.jsp">해당파일</a><br/>
 	<a href="/jsp02_myboard_psw/mylist.jsp">전체경로로 진입</a>
-	<%-- <jsp:forward page="./mylist.jsp"></jsp:forward> --%>
+<%-- 	<jsp:forward page="./mylist.jsp"></jsp:forward> --%>
 	
 </body>
 </html>
