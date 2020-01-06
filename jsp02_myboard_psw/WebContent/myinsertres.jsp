@@ -18,7 +18,7 @@
 	// 변수를 dto로 세팅해준다.
 	// dao의 insert(dto)기능으로 결과를 받는다. (res)
 	// res>0 일 경우.. 성공.
-	String myname = request.getParameter("myname");
+	String myname = request.getParameter("myname"); //request 객체
 	String mytitle = request.getParameter("mytitle");
 	String mycontent = request.getParameter("mycontent");
 	MyDto dto = new MyDto();

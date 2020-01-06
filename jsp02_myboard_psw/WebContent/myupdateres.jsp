@@ -1,8 +1,10 @@
+<%@page import="com.my.dto.MyDto"%>
 <%@page import="com.my.dao.MyDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,23 +14,27 @@
 <body>
 <%
 	int myno = Integer.parseInt(request.getParameter("myno"));
+	String mytitle = request.getParameter("mytitle");
+	String mycontent = request.getParameter("mycontent");
+	MyDto dto = new MyDto(myno,null,mytitle,mycontent,null);
 	MyDao dao = new MyDao();
-	int res = dao.delete(myno);
+	int res = dao.update(dto);
 	if(res>0){
-%>	
+%>
 	<script type="text/javascript">
-		alert("삭제성공");
-		location.href="mylist.jsp";	
+		alert("수정 성공");
+		location.href="mydetail.jsp?myno=" + <%=dto.getMyno() %>;
 	</script>
 <%
 	} else {
-%>	
+%>		
 	<script type="text/javascript">
-		alert("삭제실패");
-		location.href="mydetail.jsp?myno=<%=myno %>";	
+		alert("수정 실패");
+		location.href="myupdate.jsp?myno=" + <%=dto.getMyno() %>;
 	</script>
 <%
 	}
-%>	
+%>		
+		
 </body>
 </html>

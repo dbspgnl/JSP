@@ -52,7 +52,7 @@
 %>
 		<tr>
 			<td colspan="4" align="right">
-			<input type="button" value="글쓰기" onclick="location.href='./myinsert.jsp'">
+			<input type="button" value="글쓰기" onclick="location.href='myinsert.jsp'">
 			</td>
 		</tr>
 	

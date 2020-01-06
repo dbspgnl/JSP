@@ -1,7 +1,6 @@
 package com.my.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,15 +74,9 @@ public class MyDao {
 			e.printStackTrace();
 			System.out.println("ERROR 3,4");
 		} finally {
-			try {
-				rs.close();
-				stmt.close();
-				con.close();
-				System.out.println("5. db종료");
-			} catch (SQLException e) {
-				System.out.println("ERROR 5");
-				e.printStackTrace();
-			}
+			close(rs);
+			close(stmt);
+			close(con);
 		}
 		return dto;
 	}
@@ -100,15 +93,14 @@ public class MyDao {
 			pstm.setString(3, dto.getMycontent());
 			
 			res = pstm.executeUpdate();
+			if(res>0) {
+				commit(con);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				pstm.close();
-				con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(pstm);
+			close(con);
 		}
 		return res;
 	}
@@ -117,8 +109,8 @@ public class MyDao {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		int res = 0;
-		String sql = " UPDATE MYBOARD SET MYNAME=?, "
-				+ " MYTITLE=? MYCONTENT=? WHERE MYNO=? ";
+		String sql = " UPDATE MYBOARD SET "
+				+ " MYTITLE=?, MYCONTENT=? WHERE MYNO=? ";
 		try {
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, dto.getMytitle());
@@ -126,15 +118,15 @@ public class MyDao {
 			pstm.setInt(3, dto.getMyno());
 			
 			res = pstm.executeUpdate();
+			if(res>0) {
+				commit(con);
+			}
 		} catch (SQLException e) {
+			System.out.println("ERROR 3,4");
 			e.printStackTrace();
 		} finally {
-			try {
-				pstm.close();
-				con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(pstm);
+			close(con);
 		}
 		return res;
 	}
@@ -143,22 +135,22 @@ public class MyDao {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		int res = 0;
-		String sql = " DELETE FROM MYBOARD WHERE =? ";
+		String sql = " DELETE FROM MYBOARD WHERE MYNO =? ";
 		
 		try {
 			pstm = con.prepareStatement(sql);
 			pstm.setInt(1, myno);
 			
 			res = pstm.executeUpdate();
+			if(res>0) {
+				commit(con);
+			}
 		} catch (SQLException e) {
+			System.out.println("ERROR 3,4");
 			e.printStackTrace();
 		} finally {
-			try {
-				pstm.close();
-				con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(pstm);
+			close(con);
 		}
 		return res;
 	}

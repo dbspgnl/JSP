@@ -17,25 +17,26 @@
 	MyDao dao = new MyDao();
 	MyDto dto = dao.selectOne(myno);
 %>
-	<h1></h1>
-	<form>
-		<table>
+	<h1>글 수정</h1>
+	<form action="myupdateres.jsp" method="post">
+	<input type="hidden" name="myno" value="<%=dto.getMyno() %>" />
+		<table border="1">
 			<tr>
 				<th>이름</th>
-				<td></td>
+				<td><%=dto.getMyname() %></td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td></td>
+				<td><input type="text" name="mytitle" value="<%=dto.getMytitle() %>"/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td></td>
+				<td><textarea rows="10" cols="60" name="mycontent"><%=dto.getMycontent() %></textarea></td>
 			</tr>
 			<tr>
-				<td>
-					<input type="submit" value="수정" />
-					<input type="reset" value="취소" />
+				<td colspan="2" align="right">
+					<input type="submit" value="완료" />
+					<input type="reset" value="취소" onclick=""/>
 				</td>
 			</tr>
 		</table>

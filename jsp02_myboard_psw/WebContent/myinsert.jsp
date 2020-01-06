@@ -10,9 +10,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
+	<h1>글쓰기</h1>
 	<form action="myinsertres.jsp" method="post">
-		<table>
+		<table border="1">
 			<tr>
 				<th>이름</th>
 				<td><input type="text" name="myname"></td>
@@ -26,9 +27,9 @@
 				<td><textarea rows="10" cols="50" name="mycontent"></textarea></td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="2" align="right">
 					<input type="submit" value="작성">
-					<input type="reset" value="취소">
+					<input type="reset" value="취소" onclick=""/>
 				</td>
 			</tr>			
 		</table>
