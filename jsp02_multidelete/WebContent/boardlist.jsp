@@ -53,7 +53,7 @@
 				<td><input type="checkbox" name="chk" value="<%=dto.getSeq()%>"/></td>
 				<td><%=dto.getSeq() %></td>
 				<td><%=dto.getWriter() %></td>
-				<td><a href="#"><%=dto.getTitle() %></a></td>
+				<td><a href="./mddetail.jsp?seq=<%=dto.getSeq() %>"><%=dto.getTitle() %></a></td>
 				<td><%=dto.getRegdate() %></td>
 			</tr>
 <%
@@ -67,7 +67,6 @@
 				</td>
 			</tr>
 			
-				
 		</table>
 	</form>
 	<%@ include file="./form/footer.jsp" %>

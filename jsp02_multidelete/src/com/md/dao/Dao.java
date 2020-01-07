@@ -93,8 +93,34 @@ public class Dao {
 	}
 	
 	public Dto selectOne(int seq) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		String sql = " SELECT SEQ, WRITER, TITLE, CONTENT, REGDATE "
+				+ "FROM MDBOARD WHERE SEQ=? ";
+		Dto dto = new Dto();
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, dto.getSeq());
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				dto.setSeq(rs.getInt(1));
+				dto.setWriter(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setRegdate(rs.getDate(5));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("ERROR 3,4");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+		}
 		
-		return null;
+		return dto;
 	}
 	
 	public int insert(Dto dto) {
