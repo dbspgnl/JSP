@@ -101,7 +101,7 @@ public class Dao {
 		Dto dto = new Dto();
 		try {
 			pstm = con.prepareStatement(sql);
-			pstm.setInt(1, dto.getSeq());
+			pstm.setInt(1, seq);
 			rs = pstm.executeQuery();
 			while(rs.next()) {
 				dto.setSeq(rs.getInt(1));
@@ -150,6 +150,28 @@ public class Dao {
 	}
 	
 	public int update(Dto dto) {
-		return 0;
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		String sql = " UPDATE MDBOARD SET TITLE=?, CONTENT=? "
+				+ " WHERE SEQ=? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getTitle());
+			pstm.setString(2, dto.getContent());
+			pstm.setInt(3, dto.getSeq());
+			
+			res = pstm.executeUpdate();
+			if(res>0) {
+				commit(con);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+			close(con);
+		}
+		return res;
 	}
 }

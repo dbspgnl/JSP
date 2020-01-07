@@ -11,9 +11,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+$(function(){
+	$("#muldelform").submit(function(){
+		if($("#muldelform input:checked").length==0){
+			alert("하나 이상 체크해주세요!");
+			return false;
+		}
+	});
+});
 	function writeForm() {
 		location.href = "boardwriteform.jsp";
+	}
+	function allChk(bool) {
+		var chks = document.getElementsByName("chk"); // [chk, chk, chk, ..]
+		for(var i=0; i<chks.length; i++){
+			chks[i].checked = bool; 
+		}
 	}
 
 </script>
@@ -25,7 +40,7 @@
 <body>
 	<%@ include file="./form/header.jsp" %>
 	<h1>글 목록</h1>
-	<form action="./muldel.jsp" method="post">
+	<form action="./muldel.jsp" method="post" id="muldelform">
 		<table border="1">
 			<col width="30" />		
 			<col width="50" />		

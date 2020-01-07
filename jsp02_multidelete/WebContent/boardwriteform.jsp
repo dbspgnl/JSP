@@ -11,9 +11,9 @@
 </head>
 <body>
 <%@ include file ="./form/header.jsp" %>
-	<form action="writeres.jsp" method="post">
+	<form action="./writeres.jsp" method="post">
 		<h1>글쓰기</h1>
-		<table>
+		<table border="1">
 			<tr>
 				<th>작성자</th>
 				<td><input type="text" name="writer"/></td>
@@ -28,8 +28,9 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
-				<input type="submit" value="작성">
-				<input type="reset" value="취소">
+					<input type="submit" value="작성"/>
+					<input type="reset" value="지움"/>
+					<input type="button" value="취소" onclick="location.href='boardlist.jsp'"/>
 				</td>
 			</tr>
 		</table>

@@ -30,10 +30,17 @@
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><%=dto.getContent() %></td>
+			<td><textarea rows="10" cols="60" readonly="readonly"><%=dto.getContent() %></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="right">
+				<input type="button" value="수정" onclick="location.href='./mdupdate.jsp?seq=<%=dto.getSeq()%>'"/>
+				<input type="button" value="삭제" onclick="location.href='./muldel.jsp?chk=<%= dto.getSeq()%>'"/>
+				<input type="button" value="취소" onclick="location.href='./boardlist.jsp'"/>
+			</td>
 		</tr>
 	
-	</table>
+	</table><br/>
 <%@ include file="./form/footer.jsp" %>
 </body>
 </html>
