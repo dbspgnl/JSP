@@ -39,7 +39,7 @@
 					<input type="hidden" name="seq" value="<%=dto.getSeq()%>"/>
 					<!-- 숫자 안보내면 모든 테이블이 수정된다. -->
 					<input type="submit" value="수정"/>
-					<input type="button" value="취소" onclick=""/>
+					<input type="button" value="취소" onclick="history.back()"/>
 				</td>
 			</tr>
 		</table>
