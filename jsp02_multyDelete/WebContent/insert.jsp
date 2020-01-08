@@ -12,19 +12,19 @@
 <body>
 <%@ include file="./form/header.jsp" %>
 	<h3>글쓰기 페이지</h3>
-	<form action="#" method="post">
+	<form action="./insertres.jsp" method="post">
 	<table>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text"/></td>
+			<td><input type="text" name="name"/></td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td><input type="text"/></td>
+			<td><input type="text" name="title"/></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea rows="10" cols="60"></textarea></td>
+			<td><textarea rows="10" cols="60" name="content"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right">

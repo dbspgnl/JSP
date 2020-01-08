@@ -27,6 +27,7 @@
 	List<Dto> list = dao.selectList();
 %>
 	<h2>글 목록</h2>
+	<form action="./MDelete.jsp" method="post" id="mdform">
 	<table border="1">
 	<col width ="30"/>
 	<col width ="50"/>
@@ -51,7 +52,7 @@
 		for(Dto dto : list){
 %>	
 		<tr>
-			<td style="text-align: center;"><input type="checkbox" name="chk" /></td>
+			<td style="text-align: center;"><input type="checkbox" name="chk" value="<%=dto.getNum()%>"/></td>
 			<td style="text-align: center;"><%=dto.getNum() %></td>
 			<td style="text-align: center;"><%=dto.getName() %></td>
 			<td><a href="#" style="text-decoration:none;"><%=dto.getTitle() %></a></td>
@@ -63,12 +64,11 @@
 		<tr>
 			<td colspan="5" align="right">
 				<input type="button" value="글쓰기" onclick="location.href='insert.jsp'"/>
-				<input type="button" value="선택삭제" onclick=""/>
+				<input type="submit" value="선택삭제"/>
 			</td>
 		</tr>
-	
-	
 	</table>
+	</form>
 <%@ include file="./form/footer.jsp" %>
 </body>
 </html>
