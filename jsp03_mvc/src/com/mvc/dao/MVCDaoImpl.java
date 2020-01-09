@@ -97,8 +97,28 @@ public class MVCDaoImpl implements MVCDao {
 
 	@Override
 	public int update(MVCDto dto) {
-
-		return 0;		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		try {
+			pstm = con.prepareStatement(UPDATE_SQL);
+			pstm.setString(1, dto.getTitle());
+			pstm.setString(2, dto.getContent());
+			pstm.setInt(3, dto.getSeq());
+			res = pstm.executeUpdate();
+			
+			if(res>0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm, con);
+		}
+		return res;		
 	}
 
 	@Override

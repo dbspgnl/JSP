@@ -13,7 +13,7 @@ public interface MVCDao {
 	String INSERT_SQL = " INSERT INTO MVCBOARD VALUES "
 			+ " (MVCBOARDSEQ.NEXTVAL,?,?,?,SYSDATE) ";
 	String UPDATE_SQL = " UPDATE MVCBOARD SET TITLE=?, CONTENT=? "
-			+ " WHRER SEQ=? ";
+			+ " WHERE SEQ=? ";
 	String DELETE_SQL = " DELETE FROM MVCBOARD WHERE SEQ=? ";
 	
 	public List<MVCDto> selectList();

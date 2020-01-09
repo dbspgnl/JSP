@@ -24,24 +24,24 @@
 		//1. 받을 데이터가 있는지?
 		//2. db에서 가져올 데이터가 있는지?
 		//3. 어디로 갈건지?
-	if(command.equals("list")){
+	if(command.equals("list")){ //------- 메인 글 목록 -------
 		//1.x //2.리스트를 가져옮
 		//3.boardlist.jsp로 간다.
 		List<MVCDto> list = biz.selectList();
 		request.setAttribute("list", list);
 		pageContext.forward("boardlist.jsp");
-	} else if (command.equals("detail")){
+	} else if (command.equals("detail")){	//------- 내용 보기 -------
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		MVCDto dto = biz.selectOne(seq);
 		request.setAttribute("dto", dto);
 		pageContext.forward("detail.jsp");
-	} else if (command.equals("update")){
+	} else if (command.equals("update")){	//------- 수정 -------
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		MVCDto dto = biz.selectOne(seq);
 		int res = biz.update(dto);
 		request.setAttribute("dto", dto);
 		pageContext.forward("update.jsp");
-	} else if (command.equals("updateres")){	
+	} else if (command.equals("updateres")){	//------- 수정 결과 -------
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -65,10 +65,10 @@
 		</script>
 <%
 		}
-	} else if (command.equals("writeform")){
+	} else if (command.equals("writeform")){ //------- 글쓰기 -------
 		//1.x 2.x 3.boardwrite.jsp
 		response.sendRedirect("boardwrite.jsp");
-	} else if (command.equals("writeres")){
+	} else if (command.equals("writeres")){ //------- 글쓰기 결과 -------
 		//1.
 		String writer = request.getParameter("writer");
 		String title = request.getParameter("title");
@@ -95,7 +95,7 @@
 		</script>
 <%
 		}
-	} else if(command.equals("muldel")) {
+	} else if(command.equals("muldel")) { //------- 삭제 (submit) -------
 		//1.chk
 		String [] seqs = request.getParameterValues("chk");
 		//2.
