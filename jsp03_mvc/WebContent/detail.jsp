@@ -28,7 +28,7 @@
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea rows="10" cols="60" readonly="readonly"><%=dto.getTitle() %></textarea></td>
+			<td><textarea rows="10" cols="60" readonly="readonly"><%=dto.getContent() %></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right">

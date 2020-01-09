@@ -25,8 +25,6 @@
 		//2. db에서 가져올 데이터가 있는지?
 		//3. 어디로 갈건지?
 	if(command.equals("list")){ //------- 메인 글 목록 -------
-		//1.x //2.리스트를 가져옮
-		//3.boardlist.jsp로 간다.
 		List<MVCDto> list = biz.selectList();
 		request.setAttribute("list", list);
 		pageContext.forward("boardlist.jsp");
@@ -38,38 +36,35 @@
 	} else if (command.equals("update")){	//------- 수정 -------
 		int seq = Integer.parseInt(request.getParameter("seq"));
 		MVCDto dto = biz.selectOne(seq);
-		int res = biz.update(dto);
 		request.setAttribute("dto", dto);
 		pageContext.forward("update.jsp");
 	} else if (command.equals("updateres")){	//------- 수정 결과 -------
-		int seq = Integer.parseInt(request.getParameter("seq"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		int seq = Integer.parseInt(request.getParameter("seq"));
 		MVCDto dto = new MVCDto();
-		dto.setSeq(seq);
 		dto.setTitle(title);
 		dto.setContent(content);
+		dto.setSeq(seq);
 		int res = biz.update(dto);
 		if(res>0){
 %>
 		<script type="text/javascript">
 			alert("수정 완료");
-			location.href="controller.jsp?command=list";
+			location.href="controller.jsp?command=detail&seq=<%=seq%>";
 		</script>	
 <% 
 		} else {
 %>			
 		<script type="text/javascript">
 			alert("수정 실패");
-			location.href="controller.jsp?command=update&seq=<%=dto.getSeq()%>";
+			location.href="controller.jsp?command=update&seq=<%=seq%>";
 		</script>
 <%
 		}
 	} else if (command.equals("writeform")){ //------- 글쓰기 -------
-		//1.x 2.x 3.boardwrite.jsp
 		response.sendRedirect("boardwrite.jsp");
 	} else if (command.equals("writeres")){ //------- 글쓰기 결과 -------
-		//1.
 		String writer = request.getParameter("writer");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -77,9 +72,7 @@
 		dto.setWriter(writer);
 		dto.setTitle(title);
 		dto.setContent(content);
-		//2.
 		int res = biz.insert(dto);
-		//3.
 		if(res>0){
 %>
 		<script type="text/javascript">
@@ -96,11 +89,8 @@
 <%
 		}
 	} else if(command.equals("muldel")) { //------- 삭제 (submit) -------
-		//1.chk
 		String [] seqs = request.getParameterValues("chk");
-		//2.
 		boolean res = biz.MDelte(seqs);
-		//3.
 		if(res){
 %>			
 		<script type="text/javascript">

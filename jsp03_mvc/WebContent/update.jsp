@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
+<%
 	MVCDto dto = (MVCDto)request.getAttribute("dto");
 %>
 	<form action="controller.jsp" method="post">
@@ -33,8 +33,8 @@
 		<tr>
 			<td colspan="2" align="right">
 				<input type="hidden" name="seq" value="<%=dto.getSeq()%>"/>
-				<input type="submit" value="수정" onclick="location.href='controller.jsp?command=update&seq=<%= dto.getSeq()%>'"/>
-				<input type="button" value="취소" onclick="location.href='controller.jsp?command=list'"/>
+				<input type="submit" value="수정" />
+				<input type="button" value="목록" onclick="location.href='controller.jsp?command=list'"/>
 			</td>
 		</tr>
 	</table>
