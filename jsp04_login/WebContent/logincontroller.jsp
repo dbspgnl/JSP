@@ -84,8 +84,41 @@
 		</script>
 <%
 		}
+	} else if (command.equals("updateuser")){
+		int myno = Integer.parseInt(request.getParameter("myno"));
+		MyMemberDto dto = biz.selectUser(myno);
+		request.setAttribute("dto", dto);
+		pageContext.forward("updateuser.jsp");
+	} else if (command.equals("updateres")){
+		String mypw = request.getParameter("mypw");
+		String myname = request.getParameter("myname");
+		String myaddr = request.getParameter("myaddr");
+		int myno = Integer.parseInt(request.getParameter("myno"));
+		MyMemberDto dto = new MyMemberDto();
+		dto.setMypw(mypw);
+		dto.setMyname(myname);
+		dto.setMyaddr(myaddr);
+		dto.setMyno(myno);
+		int res = biz.updateUser(dto);
+		if(res>0){
+%>			
+		<script type="text/javascript">
+			alert("정보 수정 성공");
+			location.href="logincontroller.jsp?command=updateuser";
+		</script>
+<%
+		} else {
+%>			
+		<script type="text/javascript">
+			alert("정보 수정 실패");
+			location.href="history.rollback()";
+		</script>
+<%
+		}
 	}
 %>			
+		
+		
 			
 				
 		

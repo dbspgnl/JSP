@@ -198,14 +198,59 @@ public class MyMemberDaoImpl implements MyMemberDao {
 
 	@Override
 	public int updateUser(MyMemberDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		String sql = " UPDATE MYMEMBER SET "
+				+ " MYPW=?, MYNAME=?, MYADDR=? WHERE MYNO=? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getMypw());
+			pstm.setString(2, dto.getMyname());
+			pstm.setString(3, dto.getMyaddr());
+			pstm.setInt(4, dto.getMyno());
+			res = pstm.executeUpdate();
+			
+			if(res>0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm, con);
+		}
+		return res;
 	}
 
 	@Override
 	public int deleteUser(int myno) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		String sql = " UPDATE MYMEMBER SET MYENABLED=? WHERE MYNO=? ";
+		MyMemberDto dto = new MyMemberDto();
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getMyenabled());
+			pstm.setInt(2, myno);
+			res = pstm.executeUpdate();
+			
+			if(res>0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm, con);
+		}
+		return res;
 	}
 
 }

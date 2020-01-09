@@ -1,4 +1,4 @@
-<%@page import="com.mvc.dto.MVCDto"%>
+<%@page import="com.login.dto.MyMemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
@@ -12,29 +12,29 @@
 </head>
 <body>
 <%
-	MVCDto dto = (MVCDto)request.getAttribute("dto");
+	MyMemberDto dto = (MyMemberDto)request.getAttribute("dto");
 %>
 	<form action="controller.jsp" method="post">
 	<input type="hidden" name="command" value="updateres" />
-	<h1>글 수정</h1>
+	<h1>정보 수정</h1>
 	<table border="1">
 		<tr>
-			<th>작성자</th>
-			<td><%=dto.getWriter() %></td>
+			<th>이름</th>
+			<td><input type="text" name="name" value="<%=dto.getMyname() %>"></td>
 		</tr>
 		<tr>
-			<th>제목</th>
-			<td><input type="text" name="title" value="<%=dto.getTitle() %>"></td>
+			<th>비밀번호</th>
+			<td><input type="password" name="pw" value="<%=dto.getMypw() %>"></td>
 		</tr>
 		<tr>
-			<th>내용</th>
-			<td><textarea rows="10" cols="60" name="content"><%=dto.getTitle() %></textarea></td>
+			<th>주소</th>
+			<td><input type="text" name="addr" value="<%=dto.getMyaddr() %>"></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
-				<input type="hidden" name="seq" value="<%=dto.getSeq()%>"/>
+				<input type="hidden" name="myno" value="<%=dto.getMyno() %>"/>
 				<input type="submit" value="수정" />
-				<input type="button" value="목록" onclick=""/>
+				<input type="button" value="목록" onclick="history.back();"/>
 			</td>
 		</tr>
 	</table>

@@ -16,8 +16,8 @@
 <body>
 	<h1><%=dto.getMyname() %>님 환영합니다.</h1>
 	<input type="button" value="조회" onclick="location.href='logincontroller.jsp?command=selectenabled'" />
-	<input type="button" value="수정" onclick="" />
-	<input type="button" value="탈퇴" onclick="" />
+	<input type="button" value="수정" onclick="location.href='logincontroller.jsp?command=updateuser&myno=<%=dto.getMyno() %>'" />
+	<input type="button" value="탈퇴" onclick="location.href='logincontroller.jsp?command=deleteuser" />
 	<!-- 탈퇴는 delete가 아니라 update (enabled:"N")-->
 	
 </body>
