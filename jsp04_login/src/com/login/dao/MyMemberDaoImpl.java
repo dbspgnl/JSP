@@ -152,14 +152,61 @@ public class MyMemberDaoImpl implements MyMemberDao {
 
 	@Override
 	public MyMemberDto idChk(String myid) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		MyMemberDto dto = null;
+		//MyMemberDto dto = new MyMemberDto();
+		//dto가 null이 아니라면 객체라서 != null검사에서 항상 true
+		String sql = " SELECT * FROM MYMEMBER WHERE MYID =? ";
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, myid);
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				dto = new MyMemberDto();
+				dto.setMyno(rs.getInt(1));
+				dto.setMyid(rs.getString(2));
+				dto.setMypw(rs.getString(3));
+				dto.setMyname(rs.getString(4));
+				dto.setMyaddr(rs.getString(5));
+				dto.setMyphone(rs.getString(6));
+				dto.setMyemail(rs.getString(7));
+				dto.setMyenabled(rs.getString(8));
+				dto.setMyrole(rs.getString(9));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm, con);
+		}
+		return dto;
 	}
 
 	@Override
 	public int insertUser(MyMemberDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		String sql = " INSERT INTO MYMEMBER VALUES "
+				+ " (MYMEMBERSEQ.NEXTVAL,?,?,?,?,?,?,'Y','USER') ";
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getMyid());
+			pstm.setString(2, dto.getMypw());
+			pstm.setString(3, dto.getMyname());
+			pstm.setString(4, dto.getMyaddr());
+			pstm.setString(5, dto.getMyphone());
+			pstm.setString(6, dto.getMyemail());
+			res = pstm.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstm, con);
+		}
+		return res;
 	}
 
 	@Override
@@ -231,12 +278,10 @@ public class MyMemberDaoImpl implements MyMemberDao {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		int res = 0;
-		String sql = " UPDATE MYMEMBER SET MYENABLED=? WHERE MYNO=? ";
-		MyMemberDto dto = new MyMemberDto();
+		String sql = " UPDATE MYMEMBER SET MYENABLED='N' WHERE MYNO=? ";
 		try {
 			pstm = con.prepareStatement(sql);
-			pstm.setString(1, dto.getMyenabled());
-			pstm.setInt(2, myno);
+			pstm.setInt(1, myno);
 			res = pstm.executeUpdate();
 			
 			if(res>0) {

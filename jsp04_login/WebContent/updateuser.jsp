@@ -14,21 +14,21 @@
 <%
 	MyMemberDto dto = (MyMemberDto)request.getAttribute("dto");
 %>
-	<form action="controller.jsp" method="post">
+	<form action="logincontroller.jsp" method="post">
 	<input type="hidden" name="command" value="updateres" />
 	<h1>정보 수정</h1>
 	<table border="1">
 		<tr>
 			<th>이름</th>
-			<td><input type="text" name="name" value="<%=dto.getMyname() %>"></td>
+			<td><input type="text" name="myname" value="<%=dto.getMyname() %>"></td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
-			<td><input type="password" name="pw" value="<%=dto.getMypw() %>"></td>
+			<td><input type="password" name="mypw" value="<%=dto.getMypw() %>"></td>
 		</tr>
 		<tr>
 			<th>주소</th>
-			<td><input type="text" name="addr" value="<%=dto.getMyaddr() %>"></td>
+			<td><input type="text" name="myaddr" value="<%=dto.getMyaddr() %>"></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right">
