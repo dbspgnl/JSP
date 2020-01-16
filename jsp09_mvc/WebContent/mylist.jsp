@@ -43,7 +43,7 @@
 		</c:choose>
 		<tr>
 			<td colspan="4">
-				<input type="button" value="글쓰기" onclick="con.do?command=insert" />
+				<input type="button" value="글쓰기" onclick="location.href='con.do?command=insert'" />
 			</td>
 		</tr>
 	

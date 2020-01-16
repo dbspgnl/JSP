@@ -76,20 +76,83 @@ public class MyDaoImpl implements MyDao {
 
 	@Override
 	public int insert(MyDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		try {
+			pstm = con.prepareStatement(INSERT_SQL);
+			pstm.setString(1, dto.getWriter());
+			pstm.setString(2, dto.getTitle());
+			pstm.setString(3, dto.getContent());
+			System.out.println("3. query");
+			res = pstm.executeUpdate();
+			System.out.println("4. execute");
+			if(res>0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR 3,4");
+			e.printStackTrace();
+		} finally {
+			close(pstm, con);
+		}
+		return res;
 	}
 
 	@Override
 	public int update(MyDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		try {
+			pstm = con.prepareStatement(UPDATE_SQL);
+			pstm.setString(1, dto.getTitle());
+			pstm.setString(2, dto.getContent());
+			pstm.setInt(3, dto.getSeq());
+			System.out.println("3. query");
+			res = pstm.executeUpdate();
+			System.out.println("4.excute");
+			if(res>0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR 3,4");
+			e.printStackTrace();
+		} finally {
+			close(pstm, con);
+		}
+		return res;
 	}
 
 	@Override
 	public int delete(int seq) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		try {
+			pstm = con.prepareStatement(DELETE_SQL);
+			System.out.println("3. query");
+			pstm.setInt(1, seq);
+			res = pstm.executeUpdate();
+			System.out.println("4. execute");
+			if(res>0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR 3,4");
+			e.printStackTrace();
+		} finally {
+			close(pstm, con);
+		}
+		return res;
 	}
 
 }

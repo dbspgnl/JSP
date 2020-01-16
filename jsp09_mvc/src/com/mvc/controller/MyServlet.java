@@ -34,13 +34,60 @@ public class MyServlet extends HttpServlet {
 			List<MyDto> list = biz.selectList();
 			request.setAttribute("list", list);
 			dispatch("mylist.jsp", request, response);
-		} else if (command.equals("detail")) {
+		} 
+		else if (command.equals("detail")) {
 			int seq = Integer.parseInt(request.getParameter("seq"));
 			MyDto dto = biz.selectOne(seq);
 			request.setAttribute("dto", dto);
 			dispatch("mydetail.jsp", request, response);
-		} else if (command.equals("insert")) {
+		} 
+		else if (command.equals("insert")) {
 			response.sendRedirect("insertform.jsp");
+		} 
+		else if (command.equals("insertres")) {
+			String writer = request.getParameter("writer");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			MyDto dto = new MyDto();
+			dto.setWriter(writer);
+			dto.setTitle(title);
+			dto.setContent(content);
+			int res = biz.insert(dto);
+			if(res>0) {
+				jsResponse("글 등록 성공", "con.do?command=list", response);
+			} else {
+				jsResponse("글 등록 실패", "con.do?command=insertform", response);
+			}
+		} 
+		else if(command.equals("updateform")) {
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			MyDto dto = biz.selectOne(seq);
+			request.setAttribute("dto", dto);
+			dispatch("updateform.jsp", request, response);
+		}
+		else if(command.equals("updateres")) {
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			MyDto dto = new MyDto();
+			dto.setTitle(title);
+			dto.setContent(content);
+			dto.setSeq(seq);
+			int res = biz.update(dto);
+			if(res>0) {
+				jsResponse("글 수정 성공", "mvc.do?command=list", response);
+			} else {
+				jsResponse("글 수정 실패", "mvc.do?command=detail&seq="+seq, response);
+			}
+		}
+		else if(command.equals("delete")) {
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			int res = biz.delete(seq);
+			if(res>0) {
+				jsResponse("삭제 성공", "mvc.do?command=list", response);
+			} else {
+				jsResponse("삭제 실패", "mvc.do?command=detail&seq="+seq, response);
+			}
 		}
 		
 		response.getWriter().append("<h1><a href='con.do?command=list'>잘못왔다.</a></h1>");

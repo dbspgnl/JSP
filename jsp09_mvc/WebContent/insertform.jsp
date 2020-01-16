@@ -12,7 +12,8 @@
 </head>
 <body>
 	<h1>글쓰기</h1>
-	<form action="#">
+	<form action="con.do" method="get">
+	<input type="hidden" name="command" value="insertres"/>
 	<table border="1">
 		<tr>
 			<th>작성자</th>
@@ -24,7 +25,7 @@
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea rows="10" cols="60"></textarea></td>
+			<td><textarea rows="10" cols="60" name="content"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2">
