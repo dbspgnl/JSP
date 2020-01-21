@@ -24,7 +24,6 @@ public class AnswerDaoImpl implements AnswerDao {
 	String UPDATE_SQL = " UPDATE ANSWERBOARD SET WRITER=?, TITLE=?, CONTENT=? WHERE BOARDNO=? ";
 	String DELETE_SQL = " DELETE FROM ANSWERBOARD WHERE BOARDNO=? ";
 	
-	
 	@Override
 	public List<AnswerDto> selectList() {
 		Connection con = getConnection();
@@ -178,6 +177,72 @@ public class AnswerDaoImpl implements AnswerDao {
 			e.printStackTrace();
 		} finally {
 			close(pstm, con);
+		}
+		
+		return res;
+	}
+	
+	public int answerUpdate(int parentboardno) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		String ANSWER_UPDATE_SQL = "UPDATE ANSWERBOARD " + 
+				" SET GROUPSEQ = GROUPSEQ+1 " + 
+				" WHERE GROUPNO = (SELECT GROUPNO FROM ANSWERBOARD WHERE BOARDNO=?) " +  
+				" AND GROUPSEQ > (SELECT GROUPSEQ FROM ANSWERBOARD WHERE BOARDNO=?) " ;
+		try {
+			pstm = con.prepareStatement(ANSWER_UPDATE_SQL);
+			pstm.setInt(1, parentboardno);
+			pstm.setInt(2, parentboardno);
+			System.out.println("3. query");
+			res = pstm.executeUpdate();
+			System.out.println("4. execute");
+			if(res>0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR 3,4");
+			e.printStackTrace();
+		} finally {
+			close(pstm, con);
+		}
+		return res;
+	}
+	
+	public int answerInsert(AnswerDto dto) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		String ANSWER_INSERT_SQL = " INSERT INTO ANSWERBOARD " + 
+				" VALUES( " + 
+				"	BOARDNOSEQ.NEXTVAL, " + 
+				"	(SELECT GROUPNO FROM ANSWERBOARD WHERE BOARDNO=?), " + 
+				"	(SELECT GROUPSEQ FROM ANSWERBOARD WHERE BOARDNO=?)+1, " + 
+				"	(SELECT TITLETAB FROM ANSWERBOARD WHERE BOARDNO=?)+1, " + 
+				"	?, ?, ?, SYSDATE ) ";  
+		
+		try {
+			pstm = con.prepareStatement(ANSWER_INSERT_SQL);
+			pstm.setInt(1, dto.getBoardno());
+			pstm.setInt(2, dto.getBoardno());
+			pstm.setInt(3, dto.getBoardno());
+			pstm.setString(4, dto.getTitle());
+			pstm.setString(5, dto.getContent());
+			pstm.setString(6, dto.getWriter());
+			
+			System.out.println("3. query");
+			res = pstm.executeUpdate();
+			System.out.println("4. execute");
+			if(res>0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("ERROR 3,4");
+			e.printStackTrace();
 		}
 		
 		return res;

@@ -35,4 +35,11 @@ public class AnswerBizImpl implements AnswerBiz {
 		return dao.delete(boardno);
 	}
 
+	public int answerProc(AnswerDto dto) {
+		int updateRes = dao.answerUpdate(dto.getBoardno());
+		int insertRes = dao.answerInsert(dto);
+		
+		return updateRes+insertRes;
+	}
+	
 }

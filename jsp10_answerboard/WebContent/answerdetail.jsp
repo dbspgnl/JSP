@@ -31,6 +31,7 @@
 			<input type="submit" value="수정" onclick="location.href='answer.do?command=updateform&boardno=${dto.boardno }'">
 			<input type="button" value="삭제" onclick="location.href='answer.do?command=delete&boardno=${dto.boardno }'">
 			<input type="button" value="목록" onclick="location.href='answer.do?command=list'">
+			<input type="button" value="답변" onclick="location.href='answer.do?command=answer&boardno=${dto.boardno}'">
 		</td>
 	</tr>
 	</table>

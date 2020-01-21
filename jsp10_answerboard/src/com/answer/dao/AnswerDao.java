@@ -11,5 +11,7 @@ public interface AnswerDao {
 	public int insert(AnswerDto dto);
 	public int update(AnswerDto dto);
 	public int delete(int boardno);
+	public int answerUpdate(int boardno);
+	public int answerInsert(AnswerDto dto);
 	
 }
