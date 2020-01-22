@@ -37,8 +37,9 @@ public class AnsBizImpl implements AnsBiz {
 
 	@Override
 	public int ansProc(AnsDto dto) {
-		int boardno = dto.getBoardno();
-		return dao.ansInsert(dto)+dao.ansUpdate(boardno);
+		int updateRes = dao.ansUpdate(dto.getBoardno());
+		int insertRes = dao.ansInsert(dto);
+		return updateRes+insertRes;
 	}
 
 }

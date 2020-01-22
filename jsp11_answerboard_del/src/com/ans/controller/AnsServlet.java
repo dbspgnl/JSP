@@ -78,10 +78,52 @@ public class AnsServlet extends HttpServlet {
 			}
 		}
 		else if(command.equals("updateform")) {
-			//To do updatform
-			//To do updateres
-			//To do answer
-			//To do answerres
+			int boardno = Integer.parseInt(request.getParameter("boardno"));
+			AnsDto dto = biz.selectOne(boardno);
+			request.setAttribute("dto", dto);
+			dispatch("updateform.jsp", request, response);			
+		}
+		else if(command.equals("updateres")) {
+			int boardno = Integer.parseInt(request.getParameter("boardno"));
+			String writer  = request.getParameter("writer");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content"); 
+			AnsDto dto = new AnsDto();
+			dto.setWriter(writer);
+			dto.setTitle(title);
+			dto.setContent(content);
+			dto.setBoardno(boardno);
+			int res = biz.update(dto);
+			if(res>0) {
+				jsResponse("글 수정 성공", "ans.do?command=list", response);
+			} else {
+				jsResponse("글 수정 실패", "ans.do?command=detail&boardno="+boardno, response);
+			}			
+		}
+		else if(command.equals("answer")) {
+			int boardno = Integer.parseInt(request.getParameter("boardno"));
+			AnsDto dto = biz.selectOne(boardno);
+			request.setAttribute("dto", dto);
+			dispatch("answerform.jsp", request, response);
+		}
+		else if(command.equals("answerres")) {
+			int parentboardno = Integer.parseInt(request.getParameter("parentboardno"));
+			String writer = request.getParameter("writer");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			AnsDto dto = new AnsDto();
+			dto.setBoardno(parentboardno);
+			dto.setWriter(writer);
+			dto.setTitle(title);
+			dto.setContent(content);
+			
+			int res = biz.ansProc(dto);
+			if(res>0) {
+				jsResponse("답변 작성 성공", "ans.do?command=list", response);
+			} else {
+				jsResponse("답변 작성 실패", "ans.do?command=answer&boardno="+parentboardno, response);
+			}
+		
 		}
 		
 	}
