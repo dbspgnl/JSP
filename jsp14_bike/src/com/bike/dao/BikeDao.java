@@ -10,6 +10,8 @@ public interface BikeDao {
 	public BikeDto selectOne();
 	public int insert(BikeDto dto);
 	public int update(BikeDto dto);
-	public int delete(int num);
+	public int delete();
+	public int insert(List<BikeDto> list);
+	
 	
 }

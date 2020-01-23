@@ -23,8 +23,8 @@ public class BikeBizImpl implements BikeBiz {
 	}
 
 	@Override
-	public int insert(BikeDto dto) {
-		return dao.insert(dto);
+	public int insert(List<BikeDto> list) {
+		return dao.insert(list);
 	}
 
 	@Override

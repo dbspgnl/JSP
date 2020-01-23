@@ -8,7 +8,7 @@ public interface BikeBiz {
 
 	public List<BikeDto> selectList();
 	public BikeDto selectOne();
-	public int insert(BikeDto dto);
+	public int insert(List<BikeDto> list);
 	public int update(BikeDto dto);
 	public int delete(int num);
 	
