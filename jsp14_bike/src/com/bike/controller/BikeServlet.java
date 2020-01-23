@@ -57,8 +57,10 @@ public class BikeServlet extends HttpServlet {
 				//System.out.println(tmp[0]+" "+tmp[5]+", "+tmp[6]);
 				
 				
-//			BikeDto dto = new BikeDto(
-//				Integer.parseInt(tmp[0]), tmp[1], tmp[2], tmp[3], tmp[4], tmp[5], tmp[6]);
+			BikeDto dto = new BikeDto(
+				tmp[0], Integer.parseInt(tmp[1]), tmp[2], tmp[3], 
+				Integer.parseInt(tmp[4]), Double.parseDouble(tmp[5]), 
+				Double.parseDouble(tmp[6]));
 				
 				
 				//1.dto에 담자
