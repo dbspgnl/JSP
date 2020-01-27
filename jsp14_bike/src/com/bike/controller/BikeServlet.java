@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bike.biz.BikeBiz;
-import com.bike.biz.BikeBizImpl;
 import com.bike.dao.BikeDao;
-import com.bike.dao.BikeDaoImpl;
 import com.bike.dto.BikeDto;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -39,8 +37,8 @@ public class BikeServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8;");
 		
 		String command = request.getParameter("command");
-		BikeDao dao = new BikeDaoImpl();
-		BikeBiz biz = new BikeBizImpl();
+		BikeDao dao = new BikeDao();
+		BikeBiz biz = new BikeBiz();
 		dao.delete(); // 프라이머리 키 때문에 지우고 시작.
 		
 		if(command.equals("first")) {

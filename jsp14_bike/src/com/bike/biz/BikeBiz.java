@@ -2,14 +2,15 @@ package com.bike.biz;
 
 import java.util.List;
 
+import com.bike.dao.BikeDao;
 import com.bike.dto.BikeDto;
 
-public interface BikeBiz {
+public class BikeBiz {
 
-	public List<BikeDto> selectList();
-	public BikeDto selectOne();
-	public int insert(List<BikeDto> list);
-	public int update(BikeDto dto);
-	public int delete(int num);
+	BikeDao dao = new BikeDao();
 	
+	public int insert(List<BikeDto> list) {
+		return dao.insert(list);
+	}
+
 }
