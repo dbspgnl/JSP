@@ -2,7 +2,9 @@ package com.cal.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +29,7 @@ public class CalController extends HttpServlet {
 		
 		String command = request.getParameter("command");
 		System.out.println(command);
+		CalDao dao = new CalDao();
 		
 		if(command.equals("calendar")) {
 			response.sendRedirect("calendar.jsp");
@@ -42,14 +45,24 @@ public class CalController extends HttpServlet {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			
-			CalDao dao = new CalDao();
 			CalDto dto = new CalDto(id, title, content, mDate); 
 			int res = dao.insertCalBoard(dto);
 			if(res>0) {
-				jsResponse("일정 추가 성공", "index.html", response);
+				jsResponse("일정 추가 성공", "calendar.do?command=calendar", response);
 			} else {
-				jsResponse("일정 추가 실패", "history.back()", response);
+				request.setAttribute("msg", "일정 등록 실패");
+				dispatch("error.jsp", request, response);
 			}
+		} else if(command.equals("list")) {
+			String year = request.getParameter("year");
+			String month = request.getParameter("month");
+			String date = request.getParameter("date");
+			String yyyyMMdd = year + Util.isTwo(month) + Util.isTwo(date);
+			
+			List<CalDto> list = dao.selectCalList("kh", yyyyMMdd);
+			request.setAttribute("list", list);
+			dispatch("calendarlist.jsp", request, response);
+			
 		}
 		
 	}
@@ -61,8 +74,13 @@ public class CalController extends HttpServlet {
 				+ "</script>";
 		PrintWriter out = response.getWriter();
 		out.print(res);
-		
 	}
+	
+	public void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatch = request.getRequestDispatcher(url);
+		dispatch.forward(request, response);
+	}
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
