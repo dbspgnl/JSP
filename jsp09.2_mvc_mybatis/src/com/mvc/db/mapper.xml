@@ -2,4 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mvc">
   
+  <select id="selectList" resultType="myDto">
+  	SELECT SEQ, WRITER, TITLE, CONTENT, REGDATE FROM MVCBOARD ORDER BY SEQ DESC
+  </select>
+  
+  <select id="selectOne" resultType="myDto">
+  	SELECT SEQ, WRITER, TITLE, CONTENT, REGDATE FROM MVCBOARD WHERE SEQ =#{seq}
+  </select>
+  
+  <select id="insert">
+  	INSERT INTO MVCBOARD VALUES(MVCSEQ.NEXTVAL, #{writer},#{title},#{content}, SYSDATE )
+  </select>
+  
+  <select id="update">
+  	UPDATE MVCBOARD SET TITLE=#{title}, CONTENT=#{content} WHERE SEQ=#{seq}
+  </select>
+  
+  <select id="delete">
+  	DELETE FROM MVCBOARD WHERE SEQ=#{seq}
+  </select>
+  
 </mapper>

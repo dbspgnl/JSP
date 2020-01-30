@@ -9,9 +9,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class SqlMapConfig {
 
-	private SqlSessionFactory sessionFactory;
+	private static SqlSessionFactory sessionFactory;
 		
-	public SqlSessionFactory getsqlsSessionFactory() {
+	public static SqlSessionFactory getSqlsSessionFactory() {
 		String resource = "com/mvc/db/config.xml";
 		Reader reader = null;
 

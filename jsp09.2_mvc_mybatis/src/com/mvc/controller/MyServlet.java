@@ -75,18 +75,18 @@ public class MyServlet extends HttpServlet {
 			dto.setSeq(seq);
 			int res = biz.update(dto);
 			if(res>0) {
-				jsResponse("글 수정 성공", "mvc.do?command=list", response);
+				jsResponse("글 수정 성공", "con.do?command=list", response);
 			} else {
-				jsResponse("글 수정 실패", "mvc.do?command=detail&seq="+seq, response);
+				jsResponse("글 수정 실패", "con.do?command=detail&seq="+seq, response);
 			}
 		}
 		else if(command.equals("delete")) {
 			int seq = Integer.parseInt(request.getParameter("seq"));
 			int res = biz.delete(seq);
 			if(res>0) {
-				jsResponse("삭제 성공", "mvc.do?command=list", response);
+				jsResponse("삭제 성공", "con.do?command=list", response);
 			} else {
-				jsResponse("삭제 실패", "mvc.do?command=detail&seq="+seq, response);
+				jsResponse("삭제 실패", "con.do?command=detail&seq="+seq, response);
 			}
 		}
 		
