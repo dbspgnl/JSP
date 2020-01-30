@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 	
+	/ 최상위 폴더
+	./ 같은 폴더
+	../ 상위폴더 -->
+
+	<jsp:forward page="./mylist.jsp"></jsp:forward>
+
+</body>
+</html>
