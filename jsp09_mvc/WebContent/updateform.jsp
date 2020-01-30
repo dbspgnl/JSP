@@ -15,7 +15,7 @@
 
 	<h1>글수정</h1>
 	
-	<form action="mvc.do" method="post">
+	<form action="con.do" method="post">
 	<input type="hidden" name="command" value="updateres"/>
 	<table border="1">
 		<tr>
