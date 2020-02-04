@@ -32,8 +32,8 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">접속하기<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<li class="active"><a href="logincontroller.jsp?command=registform">회원가입</a></li>
+						<li class="active"><a href="login.jsp">로그인</a></li>
+						<li><a href="logincontroller.jsp?command=registform">회원가입</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -45,37 +45,14 @@
 			<div class="jumbotron" style="paddin-top: 20px;">
 				<form action="logincontroller.jsp" method="post">
 				<input type="hidden" name="command" value="login"/>
-					<h3 style="text-align: center;">회원가입 화면</h3>
+					<h3 style="text-align: center;">로그인 화면</h3>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="아이디" name="myid" maxlength="20"/>
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="비밀번호" name="mypw" maxlength="20"/>
+						<input type="text" class="form-control" placeholder="아이디" name="id" maxlength="20"/>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="이름" name="myname" maxlength="20"/>
+						<input type="password" class="form-control" placeholder="비밀번호" name="pw" maxlength="20"/>
 					</div>
-					<div class="form-group" style="text-align: center;">
-						<div class="btn-group" data-toggle="buttons">
-							<label class="btn btn-primary active">
-								<input type="radio" name="userGender" autocomplete="off" value="남자" checked>남자
-							</label>
-							<label class="btn btn-primary">
-								<input type="radio" name="userGender" autocomplete="off" value="여자" checked>여자
-							</label>
-						</div>					
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="주소" name="myaddr" maxlength="20"/>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="전화번호" name="myphone" maxlength="20"/>
-					</div>
-					<div class="form-group">
-						<input type="email" class="form-control" placeholder="이메일" name="myemail" maxlength="20"/>
-					</div>
-					
-					<input type="submit" class="btn btn-primary form-control" value="회원가입">
+					<input type="submit" class="btn btn-primary form-control" value="로그인">
 				</form>
 			</div>
 		</div>

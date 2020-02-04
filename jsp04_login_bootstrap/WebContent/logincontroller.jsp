@@ -144,7 +144,7 @@
 	
 	//------------------회원가입------------------
 	} else if (command.equals("registform")){
-		response.sendRedirect("registform.jsp");
+		response.sendRedirect("join.jsp");
 	//------------------아이디 체크------------------	
 	} else if (command.equals("idchk")){
 		String myid = request.getParameter("id");
