@@ -4,11 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>주말농장</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
+<%
+	String userID = null;
+	if(session.getAttribute("userID")!=null){
+		userID = (String)session.getAttribute("userID");
+	}
+%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button class="navbar-toggle collapsed"
@@ -25,17 +31,36 @@
 				<li class="active"><a href="#">메인</a></li>
 				<li><a href="#">게시판</a></li>
 			</ul>
+<%
+			if(userID == null){
+%>			
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">접속하기<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">로그인</a></li>
+						<li><a href="ef.do?command=login">로그인</a></li>
 						<li><a href="#">회원가입</a></li>
 					</ul>
 				</li>
 			</ul>
+<%
+			} else {
+%>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">회원관리<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="ef.do?command=logout">로그아웃</a></li>
+					</ul>
+				</li>
+			</ul>
+<%
+			}
+%>
 		</div>
 	</nav>
 	<div class="container">

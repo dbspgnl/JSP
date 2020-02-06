@@ -1,0 +1,36 @@
+package com.ef.dao;
+
+import java.io.IOException;
+import java.io.Reader;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+public class SqlMapConfig {
+	
+	private static SqlSessionFactory sessionFactory;
+	
+	public static SqlSessionFactory getSqlSessionFactory() {
+		
+		String resource = "com/ef/db/config.xml";
+		Reader reader = null;
+		
+		try {
+			reader = Resources.getResourceAsReader(resource);
+			sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		} catch (IOException e) {
+			System.out.println("ERROR : getResourceAsReader");
+			e.printStackTrace();
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				System.out.println("ERROR : reader close");
+				e.printStackTrace();
+			}
+		}
+		
+		return sessionFactory;
+	}
+}
