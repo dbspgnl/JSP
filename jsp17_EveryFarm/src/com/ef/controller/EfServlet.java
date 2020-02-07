@@ -47,7 +47,7 @@ public class EfServlet extends HttpServlet {
 			UserDto userDto = userDao.login(id, pw);
 			if(userDto.getId() != null) {
 				HttpSession session = request.getSession();
-				session.setAttribute("userID", userDto.getId());
+				session.setAttribute("user", userDto);
 				session.setMaxInactiveInterval(10*60); // 해당 초만큼 활동이 없으면 만료
 				dispatch("main.jsp", request, response);
 			} else {

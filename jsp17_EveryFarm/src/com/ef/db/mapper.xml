@@ -3,7 +3,15 @@
 <mapper namespace="ef">
 
 	<select id="login" resultType="UserDto">
-		SELECT * FROM MEMBER WHERE ID=#{id}
+		SELECT * FROM EF_MEMBER WHERE ID=#{id}
 	</select>
 
+	<select id="muldel" parameterType="map">
+		DELETE FROM MDBOARD
+		WHERE SEQ IN 
+		<foreach collection="seqs" item="seq" open="(" separator="," close=")">
+			#{seq}
+		</foreach>
+	</select>
+	
 </mapper>

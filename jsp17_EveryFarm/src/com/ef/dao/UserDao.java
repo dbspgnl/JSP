@@ -1,6 +1,8 @@
 package com.ef.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import static com.ef.dao.SqlMapConfig.*;
@@ -42,6 +44,28 @@ public class UserDao {
 		return dto;
 	}
 
+	public int multiDelete(String[] seq) {
+		int res = 0;
+		SqlSession session = null;
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("seqs", seq);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.delete(namespace+"muldel",map);
+			if(res==seq.length) {
+				session.commit();
+			}
+		} catch (Exception e) {
+			System.out.println("ERROR : muldel");
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
+	
 	public UserDto idChk(String myid) {
 
 		return null;
