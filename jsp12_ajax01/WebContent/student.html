@@ -19,7 +19,7 @@
 		$("#process").click(function () {
 			$.ajax({
 				url:"score.cal?"+getParameterValues(),
-				data:""; // 보낼 데이터
+				data:"", // 보낼 데이터
 				dataType:"json", //서버가 요청 url을 통해서 응답하는 내용의 타입
 				success:function(msg){ //msg(응답데이터) 
 				//서버의 응답데이터가 클라이언트에게 도착하면 자동으로 실행되는 함수(콜백)

@@ -13,13 +13,21 @@
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+	function getParameterValues() {
+		var name="name="+encodeURIComponent($("#name_js").val());
+		var kor="kor="+$("#kor_js").val();
+		var eng="eng="+$("#eng_js").val();
+		var math="math="+$("#math_js").val();
+		var query=name+"&"+kor+"&"+eng+"&"+math;
+		return query;
+	}
 	$(function(){
-		$("process.jq").click(function() {
+		$("#process_js").click(function() {
 			$.ajax({
-				url:"ajax.do?"+getParameterValues(),
+				url:"ajax.do?command=cal_js&"+getParameterValues(),
 				data:"",
 				dataType:"json",
-				success:function(msg) {
+				success:function(msg){
 					$("#result_js").html(
 						decodeURIComponent(msg.name)+"님의 총점은 "
 						+msg.sum+"이고, 평균은 "
@@ -27,19 +35,12 @@
 					);	
 				},
 				error:function () {
-					alter("통신 실패");
+					alert("통신 실패");
 				}
 			});
 		});
 	});
-	function getParameterValues() {
-		var name="name="+encodeURIComponent($("#name_js").val());
-		var kor="kor="+$("#kor_js").val();
-		var eng="eng="+$("#eng_js").val();
-		var math="math="+$("#math_js").val();
-		var query=name+"&"kor+"&"+eng+"&"+math;
-		return query;
-	}
+
 	
 </script>
 </head>

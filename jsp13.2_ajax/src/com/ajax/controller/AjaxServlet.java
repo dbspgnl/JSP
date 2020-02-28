@@ -1,11 +1,15 @@
 package com.ajax.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 @WebServlet("/ajax.do")
 public class AjaxServlet extends HttpServlet {
@@ -26,7 +30,25 @@ public class AjaxServlet extends HttpServlet {
 		if(command.equals("score")) {
 			response.sendRedirect("score.jsp");
 		}
-		
+		else if(command.equals("cal_js")) {
+			String name = request.getParameter("name");
+			int kor = Integer.parseInt(request.getParameter("kor"));
+			int eng = Integer.parseInt(request.getParameter("eng"));
+			int math = Integer.parseInt(request.getParameter("math"));
+			
+			int sum = kor + eng + math;
+			double avg = sum/3.0;
+			
+			JSONObject obj = new JSONObject();
+			obj.put("name", name);
+			obj.put("sum", sum);
+			obj.put("avg", avg);
+			String res = obj.toJSONString();
+			System.out.println("js json : "+res);
+			PrintWriter out = response.getWriter();
+			out.println(res);
+			
+		}
 		
 	}
 
