@@ -10,69 +10,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-*{margin:0px; padding:0px;}
-body, html{margin:0;padding:0;}
-body{
-  background-color:#cd3333;
-  font-family:sans-serif;
-}
-#loginform{
-      width: 40%;
-    height: 90%;
-  background-color:#fff;
-  padding:5px;
-}
-h2{
-  text-align:center;
-  font-size:42px;
-  color:#333;
-}
-input{display:block;}
-input{
-  -webkit-transition:border 0.2s ease-in-out;
-  -moz-transition:border 0.2s ease-in-out;
-  -ms-transition:border 0.2s ease-in-out;
-  -o-transition:border 0.2s ease-in-out;
-            margin-left: -100px;    
-  border:2px solid #EEE;
-  border-radius:5px;
-  background-color:#EEE;
-  padding:10px;
- margin-left:-30px;
-  margin-top:5px;
-  font-size:18px;
-  font-family:sans-serif;
-  width:65%;
-  outline:none;
-}
-.atag{
-	margin-left:-20px;
-}
-input[type="submit"]{
-  border:0;
-  margin:0 auto;
-  margin-top:15px;
-  background:#CD3333;
-  color:#FFF;
-  font-size:18px;
-  padding:10px;
-  border-radius:5px;
-  width:270px;
-  outline:none;
-  cursor:pointer;
-}
-input:focus{
-  border:2px solid #cd3333;
-}
-.warning{
-  padding:10px;
-  margin:10px;
-  text-align:center;
-  color:#666;
-  display:none;
-}
-</style>
+ <link href="../resources/css/signup/signupform.css"
+	  rel="stylesheet"
+	  type="text/css" />
  <script type="text/javascript" src="../resources/js/signup/signupform.js"></script>
 <script type="text/JavaScript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> <!-- 도로명 API -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -175,6 +115,15 @@ function submitinfo(){    //회원가입 버튼 클릭 시 유효성 검사
 		alert("전화번호를 입력해 주세요");
 		$(this).focus();
 		return false;
+	}else if($("#mem_zonecode").val()==""){
+		alert("주소를 입력해 주세요");
+		return false;
+	}else if($("#mem_addr").val()==""){
+		alert("주소를 입력해 주세요");
+		return false;
+	}else if($("#mem_addretc").val()==""){
+		alert("상세주소를 입력해 주세요");
+		return false;
 	}else{
 
 		$("form").submit();
@@ -218,14 +167,20 @@ function openDaumZipAddress() {   //클릭시 실행되는 함수
 
 
 <body>
-
-<section>
-
-<div id="loginform">
+<%@ include file="../home/header.jsp" %>
+<section style="      height: 1300px;   background: #ececec;">
+<img alt="img" src="../resources/images/signup/signupmain.png" style="width: 11%;
+    height: 17%;
+    margin: 1% 0% 0% 45%; position:relative;">
+<div id="loginform" style="margin-left: -40%; margin-top: -16%; border-radius:10px; height: 65%; top: 25%;">
   <h2 style="margin-left:70px;">Signup</h2>
   <form action="../signup.do" method="post" style="margin-left: 13%;">
   <input type="hidden" name="command" value="signupres"/>
+     <a class="atag">ID:</a><input type="text" value="" name="mem_id" id="mem_id" title="n"  required="required"/>
+     <input type="button" value="중복체크" onclick="idChk();" style="background:black; width:30%; border-radius: 10px; color:white; font-weight:bold;     margin: -8% 0% 0% 62%;"/>
      
+     <a class="atag">PW:</a><input type="password" value="" name="mem_pw" id="mem_pw" required="required"/>
+  	 <a class="atag">Name:</a><input type="text" value="" name="mem_name" id="mem_name" required="required"/>
   	 <a class="atag">Email:</a><input type="email" value="" name="mem_email" id="mem_email" required="required"/>
   	 <!-- 이메일 인증버튼 -->
   	 <input type="button" id="emailchk" onclick="echeckFun();" value="이메일인증" style="background:black; width:200px; border-radius: 10px; color:white; font-weight:bold;  margin: -8% 0% 0% 62%;"/>
@@ -245,6 +200,10 @@ function openDaumZipAddress() {   //클릭시 실행되는 함수
 			<!--  2. 이메일 인증 완료시 보일부분 끝     -->
 			<!-- 1.이메일 인증 버튼 클릭시  끝   -->
 			
+  	 <a class="atag">Phone:</a><input type="text" name="mem_phone" value="" id="mem_phone" />
+  	  <a class="atag">주소:</a><input type="text" value="" name="mem_zonecode" id="zonecode" readonly/>
+  	<input type="text" value="" name="mem_addr" id="address" readonly style="margin-top:5px;"/>
+  	<input type="text" value="" name="mem_addretc" id="addr_etc" style="margin-top:5px;">
   	
   	<input type="button" onclick="submitinfo();" value="SignUp" style="width: 60%;
     height: 5%; background:red; border-radius:10px; color:white; font-weight:bold; margin-top:1%; margin-left:5%;"/>
@@ -252,6 +211,8 @@ function openDaumZipAddress() {   //클릭시 실행되는 함수
 </div>
 </form>
 </section>
+
+<%@ include file="../home/footer.jsp" %>
 
 </body>
 </html>
