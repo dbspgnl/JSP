@@ -12,13 +12,10 @@
 <title>Insert title here</title>
 <script type="text/JavaScript" src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> <!-- 도로명 API -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<%
-	
+<%	
 	String authNum = (String)session.getAttribute("authNum");  //인증번호
 	String mem_email = (String)session.getAttribute("mem_email");
-	
-	String emailnotused = request.getParameter("emailnotused"); 
-
+	String emailNotTobe = request.getParameter("emailNotTobe");
 %>	
 <script type="text/javascript">
 
@@ -51,9 +48,9 @@ function authNumcheck(){
 //처음 로드 시 값 유지시키기 위한 함수
 $(function(){
 
-	if("<%=emailnotused%>"=="false"){
+	if("<%=emailNotTobe%>"=="false"){
 		$("#eJung_Display").css("display", "block"); //이메일중복인지
-	}else if("<%=emailnotused%>"=="true"){
+	}else if("<%=emailNotTobe%>"=="true"){
 		$("#eCheck_Display").css("display", "block"); //인증번호입력란 화면에 보이게 
 		alert("이메일에서 인증번호를 확인해 주세요");
 	}
@@ -62,6 +59,7 @@ $(function(){
 		
 		$("#eCheck_Display").show();
 		$("#InputauthNum").val("<%=authNum%>");
+		$("#mem_email").val("<%=mem_email%>");
 	}
 });
 
